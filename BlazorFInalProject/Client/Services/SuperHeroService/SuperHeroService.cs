@@ -28,7 +28,7 @@ namespace BlazorFInalProject.Client.Services.SuperHeroService
 
         public async Task GetSuperHeroes()
         {
-            var result = await _http.GetFromJsonAsync<List<SuperHero>>("api/SuperHeroes");
+            var result = await _http.GetFromJsonAsync<List<SuperHero>>("api/SuperHero");
             if(result != null)
                 Heroes = result;
         }
