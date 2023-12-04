@@ -17,15 +17,15 @@ else
 
 <EditForm Model="hero" OnSubmit="HandleSubmit">
     <div>
-        <label> for="firstname">First Name</label>
+        <label for="firstname"> First Name</label>
         <InputText id="firstname" @bind-Value="hero.FirstName" class="form-control"></InputText>
     </div>
     <div>
-        <label> for="lastname">Last Name</label>
+        <label for="lastname"> Last Name</label>
         <InputText id="lastname" @bind-Value="hero.LastName" class="form-control"></InputText>
     </div>
     <div>
-        <label> for="heroname">Hero Name</label>
+        <label for="heroname"> Hero Name</label>
         <InputText id="heroname" @bind-Value="hero.HeroName" class="form-control"></InputText>
     </div>
     <div>
@@ -33,17 +33,27 @@ else
         <InputSelect @bind-Value="hero.ComicId" class="form-select">
             @foreach (var comic in SuperHeroService.Comics)
             {
-                <option> value="@comic.Id">@comic.Name</option>
+                <option value="@comic.Id">@comic.Name</option>
             }
         </InputSelect>
     </div>
+    <br />
+    <button type="submit" class="btn btn-primary">@btnText</button>
 </EditForm>
 
 @code {
     [Parameter]
     public int? Id { get; set; }
 
+    string btnText = string.Empty;
+
     SuperHero hero = new SuperHero { Comic = new Comic() };
+
+    protected override async Task OnInitializedAsync()
+    {
+        btnText = Id == null ? "Save New Hero" : "Update Hero";
+        await SuperHeroService.GetComics();
+    }
 
     protected override async Task OnParametersSetAsync()
     {

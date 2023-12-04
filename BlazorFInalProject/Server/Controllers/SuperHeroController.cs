@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BlazorFInalProject.Shared;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorFInalProject.Server.Controllers
@@ -9,21 +10,25 @@ namespace BlazorFInalProject.Server.Controllers
     {
         public static List<Comic> comics = new List<Comic> { 
             new Comic { Id = 1, Name = "Marvel"},
-            new Comic { Id = 2, Name = "DC"},
+            new Comic { Id = 2, Name = "DC"}
         };
 
         public static List<SuperHero> heroes = new List<SuperHero> {
-            new SuperHero { Id = 1,
+            new SuperHero { 
+                Id = 1,
                 FirstName = "Peter",
                 LastName = "Parker",
                 HeroName = "Spiderman",
-                Comic = comics[0]
+                Comic = comics[0],
+                ComicId = 1,
             },
-             new SuperHero { Id = 2,
+             new SuperHero { 
+                Id = 2,
                 FirstName = "Bruce",
                 LastName = "Wayne",
                 HeroName = "Batman",
-                Comic = comics[1]
+                Comic = comics[1],
+                ComicId = 2,
              },
         };
 
@@ -31,6 +36,12 @@ namespace BlazorFInalProject.Server.Controllers
         public async Task<ActionResult<List<SuperHero>>> GetSuperHeroes()
         {
             return Ok(heroes);
+        }
+
+        [HttpGet("comics")]
+        public async Task<ActionResult<List<Comic>>> GetComics()
+        {
+            return Ok(comics);
         }
 
         [HttpGet("{id}")]

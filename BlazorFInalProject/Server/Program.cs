@@ -1,5 +1,8 @@
 global using BlazorFInalProject.Shared;
+global using BlazorFInalProject.Server.Data;
 using Microsoft.AspNetCore.ResponseCompression;
+using BlazorFInalProject.Server.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorFInalProject
 {
@@ -13,6 +16,8 @@ namespace BlazorFInalProject
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+            builder.Services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 
