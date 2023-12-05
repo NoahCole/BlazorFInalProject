@@ -23,7 +23,7 @@
                 <td>@hero.FirstName</td>
                 <td>@hero.LastName</td>
                 <td>@hero.HeroName</td>
-                <td>@hero.Comic.Name</td>
+                <td>@hero.Comic</td>
                 <td>
                     <button class="btn btn-primary" @onclick="(() => ShowHero(hero.Id))"><i class="oi oi-pencil"></i></button>
                 </td>
@@ -31,7 +31,7 @@
         }
     </tbody>
 </table>
-
+<button class="btn btn-primary" @onclick="CreateNewHero">Create New Hero</button>
 @code {
     protected override async Task OnInitializedAsync()
     {
@@ -41,5 +41,10 @@
     void ShowHero(int id)
     {
         NavigationManager.NavigateTo($"hero/{id}");
+    }
+
+    void CreateNewHero()
+    {
+        NavigationManager.NavigateTo("/hero");
     }
 }
